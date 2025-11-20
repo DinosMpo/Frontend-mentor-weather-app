@@ -1,66 +1,108 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+
+// import Image from "next/image";
+import { useState, useEffect} from "react";
+import MainSection from "./comps/MainSection/MainSection";
+import TopNav from "./comps/TopNav/TopNav";
+import SideSection from "./comps/SideSection/SideSection";
+import "./page.css";
 
 export default function Home() {
+  const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(true);
+  const [geoData, setGeoData] = useState(null);
+  const [isLoadingGeo, setLoadingGeo] = useState(true);
+  const lat = 52.52;
+  const lon = 13.405;
+  const apiForecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m&hourly=precipitation&hourly=wind_speed_10m&hourly=relativehumidity_2m&hourly=apparent_temperature&hourly=weather_code`;
+  const apiGeotUrl = `https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=1&language=en&format=json`;
+
+  useEffect(() => {
+    fetch(apiForecastUrl)
+    .then((res) => res.json())
+    .then((data) => {
+      // console.log(data);
+      setData(data)
+      setLoading(false)
+    })
+
+    fetch(apiGeotUrl)
+    .then((res) => res.json())
+    .then((data) => {
+      // console.log(data);
+      setGeoData(data)
+      setLoadingGeo(false)
+    })
+  }, [])
+
+  const days = [
+    {
+      day: 'Tue',
+      img: '',
+      high_temp: '68',
+      low_temp: '57'
+    },
+    {
+      day: 'Wed',
+      img: '',
+      high_temp: '70',
+      low_temp: '59'
+    },
+    {
+      day: 'Thu',
+      img: '',
+      high_temp: '75',
+      low_temp: '57'
+    },
+    {
+      day: 'Fri',
+      img: '',
+      high_temp: '77',
+      low_temp: '55'
+    },
+    {
+      day: 'Sat',
+      img: '',
+      high_temp: '70',
+      low_temp: '59'
+    },
+    {
+      day: 'Sun',
+      img: '',
+      high_temp: '77',
+      low_temp: '61'
+    },
+    {
+      day: 'Mon',
+      img: '',
+      high_temp: '75',
+      low_temp: '59'
+    }
+  ];
+
+  const listOfDays = days.map((day, key) => {
+    return (
+      <div className="day">
+        <div className="day-name">{day.day}</div>
+        <div className="weather-img">{day.img}</div>
+        <div className="days-temperatures">
+          <div className="high-temperature">{day.high_temp}</div>
+          <div className="low-temperature">{day.low_temp}</div>
+        </div>
+      </div>
+    );
+  });
+
+  if (isLoading || isLoadingGeo) return <p>Loading...</p>
+  if (!data || !geoData) return <p>No data</p>
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.js file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div id="container">
+      <TopNav />
+      <div id="sections">
+        <MainSection data={data} geoData={geoData}/>
+        <SideSection />
+      </div>
     </div>
   );
 }

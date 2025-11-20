@@ -1,0 +1,10 @@
+.main-section {
+    /* display: none; */
+    /* width: 70%; */
+    /* border: 1px solid white; */
+    display: flex;
+    width: 100%;
+    max-width: 800px;
+    flex-direction: column;
+    gap: 45px;
+}

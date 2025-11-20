@@ -1,0 +1,34 @@
+.daily-forecast {
+
+}
+
+#daily-forecast-title {
+    margin-bottom: 20px;
+}
+
+#days {
+    display: flex;
+    /* border: 1px solid white; */
+    justify-content: space-between;
+}
+
+.day {
+    width: 100%;
+    max-width: 100px;
+    height: 165px;
+    background-color: hsl(243, 27%, 20%);
+    border-radius: 10px;
+    border: 1px solid hsl(243, 23%, 24%);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.days-temperatures {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-self: normal;
+}

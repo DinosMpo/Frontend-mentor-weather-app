@@ -1,0 +1,86 @@
+#todays-weather-wrapper {
+    /* border: 1px solid white; */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.todays-weather-container {
+    /* border: 1px solid white; */
+    border-radius: 10px;
+    display: flex;
+    width: 100%;
+    max-width: 800px;
+    height: 287px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background-image: url('/bg-today-large.svg');
+}
+
+#todays-weather-information {
+    /* border: 1px solid white; */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+}
+
+#todays-weather-place {
+    font-weight: bold;
+    font-size: 28px;
+    /* font-family: ; */
+}
+
+#todays-weather-date {
+    font-size: 18px;
+    color: hsl(240, 6%, 70%)
+}
+
+.todays-temperature {
+    font-size: 100px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.todays-temperature span {
+    font-style: normal;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+#todays-weather-img {
+    width: 125px;
+    height: 125px;
+}
+
+.todays-weather-temperature {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#todays-weather-details {
+    display: flex;
+    /* border: 1px solid white; */
+    width: 100%;
+    justify-content: space-between;
+}
+
+.details {
+    background-color: hsl(243, 23%, 24%);
+    border-radius: 10px;
+    width: 183px;
+    height: 118px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 15px;
+    box-sizing: border-box;
+    font-size: 30px;
+}
+
+.details-title {
+    font-size: 20px;
+}
