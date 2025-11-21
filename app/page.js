@@ -14,14 +14,14 @@ export default function Home() {
   const [isLoadingGeo, setLoadingGeo] = useState(true);
   const lat = 52.52;
   const lon = 13.405;
-  const apiForecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m&hourly=precipitation&hourly=wind_speed_10m&hourly=relativehumidity_2m&hourly=apparent_temperature&hourly=weather_code`;
+  const apiForecastUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m&hourly=precipitation&hourly=wind_speed_10m&hourly=relativehumidity_2m&hourly=apparent_temperature&hourly=weather_code&daily=weather_code`;
   const apiGeotUrl = `https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=1&language=en&format=json`;
 
   useEffect(() => {
     fetch(apiForecastUrl)
     .then((res) => res.json())
     .then((data) => {
-      // console.log(data);
+      console.log(data);
       setData(data)
       setLoading(false)
     })
