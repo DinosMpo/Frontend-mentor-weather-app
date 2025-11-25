@@ -5,6 +5,9 @@
     padding: 25px;
     box-sizing: border-box;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 #hourly-forecast {
@@ -30,20 +33,32 @@
     justify-content: space-evenly;
     height: 590px;
     /* position: relative; */
+    gap: 15px;
+    /* border: 1px solid white; */
+
 }
 
 .forecast-hour {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border: 1px solid hsl(243, 23%, 30%);
     padding: 15px;
     box-sizing: border-box;
     border-radius: 10px;
+    border: 1px solid white;
     background-color: hsl(243, 23%, 30%);
 }
 
 .forecast-hour-wrapper {
     display: flex;
-    border: 1px solid white;
+    /* border: 1px solid white; */
+    align-items: center;
     
+}
+
+.forecast-hour-weather {
+    width: 30px;
+    /* border: 1px solid white; */
+    /* height: 10px; */
 }

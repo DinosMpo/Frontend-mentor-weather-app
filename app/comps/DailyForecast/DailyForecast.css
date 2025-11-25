@@ -21,9 +21,16 @@
     border: 1px solid hsl(243, 23%, 24%);
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     padding: 10px;
     box-sizing: border-box;
     align-items: center;
+}
+
+.weather-img {
+    /* border: 1px solid white; */
+    display: flex;
+    height: 60px;
 }
 
 .days-temperatures {
@@ -31,4 +38,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-self: normal;
+}
+
+.high-temperature {
+    color: hsl(0, 0%, 100%);
+}
+
+.low-temperature {
+    color: hsl(240, 6%, 70%);
 }

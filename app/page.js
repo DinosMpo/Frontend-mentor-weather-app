@@ -101,7 +101,7 @@ export default function Home() {
       <TopNav />
       <div id="sections">
         <MainSection data={data} geoData={geoData}/>
-        <SideSection />
+        <SideSection data={data}/>
       </div>
     </div>
   );
