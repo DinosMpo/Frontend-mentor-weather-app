@@ -1,8 +1,9 @@
-import React from 'react';
+import { useState } from 'react';
 import { calculate_weatherCondition } from '@/app/lib/helpers';
 import "./SideSection.css";
 
 export default function SideSection({ data }) {
+    const [activeDayClicked, setActiveDayClicked] = useState(false);
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const date = new Date();
     const activeDay = days[date.getDay()];
@@ -50,7 +51,7 @@ export default function SideSection({ data }) {
             <div className="forecast-hour" key={key}>
                 <div className='forecast-hour-wrapper'>
                     <div className='forecast-hour-wrapper'>
-                        <img className='forecast-hour-weather' src={calculate_weatherCondition(hour.img)}/>
+                        <img className='forecast-hour-weather' src={calculate_weatherCondition(hour.img)} />
                     </div>
                     <div className="hour">{hour.hour}</div>
                 </div>
@@ -63,7 +64,26 @@ export default function SideSection({ data }) {
         <div id="side-section">
             <div id="hourly-forecast">
                 <div>Hourly forecast</div>
-                <div id="day">{activeDay}</div>
+                <div id="day-wrapper">
+                    <div id="active-day-wrapper" onClick={() => setActiveDayClicked(!activeDayClicked)}>
+                        <div id="day">{activeDay}</div>
+                        <img src="./icon-dropdown.svg" alt="dropdown" />
+                    </div>
+                    {activeDayClicked
+                        ?
+                        <div id="active-day-drop-down">
+                            <div className='day-choice'>Monday</div>
+                            <div className='day-choice'>Tuesday</div>
+                            <div className='day-choice'>Wednesday</div>
+                            <div className='day-choice'>Thursday</div>
+                            <div className='day-choice'>Friday</div>
+                            <div className='day-choice'>Saturday</div>
+                            <div className='day-choice'>Sunday</div>
+                        </div>
+                        :
+                        ''
+                    }
+                </div>
             </div>
             {/* hourly prediction 8 entries*/}
             <div id='list-of-hours-container'>

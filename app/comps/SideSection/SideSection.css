@@ -16,14 +16,51 @@
     align-items: center;
 }
 
-#day {
-    background-color: hsl(243, 23%, 24%);
-    padding: 10px;
+#day-wrapper {
+    position: relative;
+}
+
+#active-day-wrapper {
+   background-color: hsl(243, 23%, 24%);
+    padding: 7.5px;
     box-sizing: border-box;
     border-radius: 10px;
-    width: 130px;
     display: flex;
     justify-content: center;
+    gap: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+#active-day-drop-down {
+    position: absolute;
+    top: 45;
+    right: 0px;
+    border-radius: 10px;
+    border: 1px solid white;
+    /* max-width: 100%; */
+    width: 212px;
+    height: 314px;
+    background-color: hsl(243, 23%, 24%);
+    box-sizing: border-box;
+    padding: 7px 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.day-choice {
+    height: 40px;
+    /* border: 1px solid rgb(104, 104, 104); */
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.day-choice:hover {
+    background-color: hsl(243, 23%, 30%);
 }
 
 #list-of-hours-container {
