@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { calculate_weatherCondition } from '@/app/lib/helpers';
 import "./SideSection.css";
 
-export default function SideSection({ data }) {
+export default function SideSection({ data, activeDay, setActiveDay }) {
     const [activeDayClicked, setActiveDayClicked] = useState(false);
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const date = new Date();
-    const activeDay = days[date.getDay()];
+    // const activeDay = days[date.getDay()];
     const newDays = days.slice(date.getDay()).concat(days.slice(0, date.getDay()));
 
     const detailOfDays = {
@@ -72,13 +72,13 @@ export default function SideSection({ data }) {
                     {activeDayClicked
                         ?
                         <div id="active-day-drop-down">
-                            <div className='day-choice'>Monday</div>
-                            <div className='day-choice'>Tuesday</div>
-                            <div className='day-choice'>Wednesday</div>
-                            <div className='day-choice'>Thursday</div>
-                            <div className='day-choice'>Friday</div>
-                            <div className='day-choice'>Saturday</div>
-                            <div className='day-choice'>Sunday</div>
+                            <div className='day-choice' onClick={()=> {setActiveDay("Monday"); setActiveDayClicked(false)}}>Monday</div>
+                            <div className='day-choice' onClick={()=> {setActiveDay("Tuesday"); setActiveDayClicked(false)}}>Tuesday</div>
+                            <div className='day-choice' onClick={()=> {setActiveDay("Wednesday"); setActiveDayClicked(false)}}>Wednesday</div>
+                            <div className='day-choice' onClick={()=> {setActiveDay("Thursday"); setActiveDayClicked(false)}}>Thursday</div>
+                            <div className='day-choice' onClick={()=> {setActiveDay("Friday"); setActiveDayClicked(false)}}>Friday</div>
+                            <div className='day-choice' onClick={()=> {setActiveDay("Saturday"); setActiveDayClicked(false)}}>Saturday</div>
+                            <div className='day-choice' onClick={()=> {setActiveDay("Sunday"); setActiveDayClicked(false)}}>Sunday</div>
                         </div>
                         :
                         ''
