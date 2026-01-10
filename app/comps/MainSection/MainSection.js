@@ -73,7 +73,7 @@ export default function MainSection({ dataMetric, dataImperial, geoData, activeD
         windspeed={windspeed}
         precipitation={precipitation}
       />
-      <DailyForecast dataMetric={dataMetric} dataImperial={dataImperial} geoData={geoData} />
+      <DailyForecast dataMetric={dataMetric} dataImperial={dataImperial} temperature={temperature} />
     </div>
   )
 }
