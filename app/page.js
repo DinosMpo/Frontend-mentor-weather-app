@@ -82,7 +82,7 @@ export default function Home() {
           windspeed={windspeed}
           precipitation={precipitation}
         />
-        <SideSection dataMetric={dataMetric} dataImperial={dataImperial} activeDay={activeDay} setActiveDay={setActiveDay} />
+        <SideSection dataMetric={dataMetric} dataImperial={dataImperial} activeDay={activeDay} setActiveDay={setActiveDay} temperature={temperature}/>
       </div>
     </div>
   );
