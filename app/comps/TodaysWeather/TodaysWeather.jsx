@@ -1,64 +1,8 @@
-import { act, useState } from 'react'
+import { useState } from 'react'
 import { calculate_weatherCondition } from '@/app/lib/helpers';
 import "./TodaysWeather.css";
 
-export default function TodaysWeather({ data, geoData, activeDay, months, activeMonth, activeHour, date }) {
-    const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const newDays = days.slice(date.getDay()).concat(days.slice(0, date.getDay()));
-
-    const detailOfDays = {
-        "Monday": [],
-        "Tuesday": [],
-        "Wednesday": [],
-        "Thursday": [],
-        "Friday": [],
-        "Saturday": [],
-        "Sunday": [],
-    }
-
-    const dataOfDays = () => {
-        //for every day of the week starting by today
-        for (let i = 0; i < newDays.length; i++) {
-            let hourCounter = 0;
-            let pmOrAm = 'AM';
-            let date = data.daily.time[i];
-
-            for (let y = (0 + (i * 23)); y <= (23 + (i * 23)); y++) {
-                detailOfDays[newDays[i]].push({
-                    hour: `${hourCounter} ${pmOrAm}`,
-                    degree: data.hourly.temperature_2m[y],
-                    img: data.hourly.weather_code[y],
-                    day: date.substr(date.lastIndexOf("-")+1, 2),
-                    month: date.substr(date.indexOf('-')+1, 2),
-                    year: date.substr(0, date.indexOf("-")),
-                    feelsLike: data.hourly.apparent_temperature[y],
-                    humidity: data.hourly.relativehumidity_2m[y],
-                    wind: data.hourly.wind_speed_10m[y],
-                    precipitation: data.hourly.precipitation[y],
-                    weather_code: data.hourly.weather_code[y]
-                });
-
-                if (hourCounter == 12 && pmOrAm == 'AM') {
-                    hourCounter = 1;
-                    pmOrAm = 'PM';
-                } else if (hourCounter == 11 && pmOrAm == 'AM') {
-                    hourCounter++;
-                    pmOrAm = 'PM';
-                } else {
-                    hourCounter++;
-                }
-            }
-            // console.log(detailOfDays);
-        }
-    };
-
-    dataOfDays();
-    // console.log(detailOfDays[activeDay][activeHour].date);
-    console.log("months");
-    console.log(months);
-    console.log("activeMonth");
-    console.log(detailOfDays);
-
+export default function TodaysWeather({ detailOfDays, geoData, activeDay, months, activeHour, temperature, windspeed, precipitation }) {
     return (
         <div id="todays-weather-wrapper">
             <div className="todays-weather-container">
@@ -74,7 +18,8 @@ export default function TodaysWeather({ data, geoData, activeDay, months, active
                     <img id='todays-weather-img' src={calculate_weatherCondition(detailOfDays[activeDay][activeHour].weather_code)} />
                     {/* <img id='todays-weather-img' src={calculate_weatherCondition(data.hourly.weather_code[activeHour])} /> */}
                     {/* <div className="todays-temperature">{data.hourly.temperature_2m[activeHour]}<span>°</span></div> */}
-                    <div className="todays-temperature">{detailOfDays[activeDay][activeHour].degree}<span>°</span></div>
+                    {/* allagh apo celsius se fahrenheit */}
+                    <div className="todays-temperature">{temperature == 'celsius' ? detailOfDays[activeDay][activeHour].degree_celsius : detailOfDays[activeDay][activeHour].degree_fahrenheit}<span>°</span></div>
                 </div>
             </div>
 
@@ -82,7 +27,7 @@ export default function TodaysWeather({ data, geoData, activeDay, months, active
                 <div className="details">
                     <div className='details-title'>Feels Like</div>
                     {/* <div>{data.hourly.apparent_temperature[activeHour]}°</div> */}
-                    <div>{detailOfDays[activeDay][activeHour].feelsLike}°</div>
+                    <div>{temperature == 'celsius' ? detailOfDays[activeDay][activeHour].feelsLike_celsius : detailOfDays[activeDay][activeHour].feelsLike_fahrenheit}°</div>
                 </div>
                 <div className="details">
                     <div className='details-title'>Humidity</div>
@@ -92,12 +37,12 @@ export default function TodaysWeather({ data, geoData, activeDay, months, active
                 <div className="details">
                     <div className='details-title'>Wind</div>
                     {/* <div>{data.hourly.wind_speed_10m[activeHour]} mph</div> */}
-                    <div>{detailOfDays[activeDay][activeHour].wind} mph</div>
+                    <div>{windspeed == 'kmh' ? `${detailOfDays[activeDay][activeHour].wind_kmh} km/h` : `${detailOfDays[activeDay][activeHour].wind_mph} mph`}</div>
                 </div>
                 <div className="details">
                     <div className='details-title'>Precipitation</div>
                     {/* <div>{data.hourly.precipitation[activeHour]} in</div> */}
-                    <div>{detailOfDays[activeDay][activeHour].precipitation} in</div>
+                    <div>{precipitation == 'mm' ? `${detailOfDays[activeDay][activeHour].precipitation_mm} mm` : `${detailOfDays[activeDay][activeHour].precipitation_inch} in`}</div>
                 </div>
             </div>
         </div>
