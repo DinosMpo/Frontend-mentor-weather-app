@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { calculate_weatherCondition } from '@/app/lib/helpers';
 import "./SideSection.css";
 
-export default function SideSection({ data, activeDay, setActiveDay }) {
+export default function SideSection({ dataMetric, dataImperial, activeDay, setActiveDay, temperature }) {
     const [activeDayClicked, setActiveDayClicked] = useState(false);
     const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const date = new Date();
@@ -26,8 +26,9 @@ export default function SideSection({ data, activeDay, setActiveDay }) {
             for (let y = (0 + (i * 23)); y <= (23 + (i * 23)); y++) {
                 detailOfDays[newDays[i]].push({
                     hour: `${hourCounter} ${pmOrAm}`,
-                    degree: data.hourly.temperature_2m[y],
-                    img: data.hourly.weather_code[y]
+                    degree_celsius: dataMetric.hourly.temperature_2m[y],
+                    degree_fahrenheit: dataImperial.hourly.temperature_2m[y],
+                    img: dataMetric.hourly.weather_code[y]
                 });
 
                 if (hourCounter == 12 && pmOrAm == 'AM') {
@@ -55,7 +56,7 @@ export default function SideSection({ data, activeDay, setActiveDay }) {
                     </div>
                     <div className="hour">{hour.hour}</div>
                 </div>
-                <div className="degree">{hour.degree}°</div>
+                <div className="degree">{temperature == 'celsius' ? hour.degree_celsius : hour.degree_fahrenheit}°</div>
             </div>
         );
     });
