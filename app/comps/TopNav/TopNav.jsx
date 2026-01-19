@@ -1,21 +1,62 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import "./TopNav.css";
 
-export default function TopNav({ imperialOrMetric, setImperialOrMetric, temperature, setTemperature, windspeed, setWindspeed, precipitation, setPrecipitation }) {
+export default function TopNav({ imperialOrMetric, setImperialOrMetric, temperature, setTemperature, windspeed, setWindspeed, precipitation, setPrecipitation, searchInput, setSearchInput, setLat, setLon }) {
   const [activeUnits, setActiveUnits] = useState(false);
+  const [searchData, setSearchData] = useState('');
+  const apiGeoUrl2 = `https://geocoding-api.open-meteo.com/v1/search?name=${searchInput}&count=5&language=en&format=json`;
+
+
+  useEffect(() => {
+    fetch(apiGeoUrl2)
+      .then((res) => res.json())
+      .then((data) => {
+        setSearchData(data);
+        console.log(data);
+      })
+    searchDataResults();
+  }, [searchInput]);
 
   const changeImperialOrMetric = () => {
-    setImperialOrMetric(()=> imperialOrMetric == 'metric' ? 'imperial' : 'metric')
-    if(imperialOrMetric == 'imperial') {
+    setImperialOrMetric(() => imperialOrMetric == 'metric' ? 'imperial' : 'metric')
+    if (imperialOrMetric == 'imperial') {
       setTemperature('celsius');
       setWindspeed('kmh');
       setPrecipitation('mm');
-    }else {
+    } else {
       setTemperature('fahrenheit');
       setWindspeed('mph');
       setPrecipitation('inch');
     }
   }
+
+  const handleChange = (e) => {
+    setSearchInput(e.target.value);
+  }
+
+  const fetchNewData = (x, y) => {
+    setLat(x);
+    setLon(y);
+    setSearchInput('');
+  }
+
+  const searchDataResults = () => {
+    if (searchData.results) {
+      console.log("searchData.results.length");
+      console.log(searchData.results.length);
+      const listOfSearchResults = searchData.results.map((data, key) => {
+        // console.log(data);
+        return (
+          <div className="search-result" key={key} onClick={() => fetchNewData(data.latitude, data.longitude)}>
+            {`${data.name}, ${data.country}, ${data.admin1}`}
+          </div>
+        );
+      });
+      return listOfSearchResults;
+    }
+  }
+
+  // console.log(searchData);
 
   return (
     <div className="top-nav">
@@ -31,16 +72,16 @@ export default function TopNav({ imperialOrMetric, setImperialOrMetric, temperat
             <div id="units-dropdown">
               <div onClick={changeImperialOrMetric} className="unit-choice" id="unit-imp">{imperialOrMetric == 'imperial' ? "Switch to Metric" : "Switch to Imperial"}</div>
               <div className="unit-title" id="unit-tmp">Temperature</div>
-              <div onClick={()=> setTemperature('celsius')} className={`unit-choice ${temperature == 'celsius' ? "active-unit" : ''}`} id="unit-celsius">Celsius (C){temperature == 'celsius' ? <img src="./icon-checkmark.svg" alt="active-unit"/> : ''}</div>
-              <div onClick={()=> setTemperature('fahrenheit')} className={`unit-choice ${temperature == 'fahrenheit' ? "active-unit" : ''}`} id="unit-fahrenheit">Fahrenheit (F){temperature == 'fahrenheit' ? <img src="./icon-checkmark.svg" alt="active-unit"/> : ''}</div>
+              <div onClick={() => setTemperature('celsius')} className={`unit-choice ${temperature == 'celsius' ? "active-unit" : ''}`} id="unit-celsius">Celsius (C){temperature == 'celsius' ? <img src="./icon-checkmark.svg" alt="active-unit" /> : ''}</div>
+              <div onClick={() => setTemperature('fahrenheit')} className={`unit-choice ${temperature == 'fahrenheit' ? "active-unit" : ''}`} id="unit-fahrenheit">Fahrenheit (F){temperature == 'fahrenheit' ? <img src="./icon-checkmark.svg" alt="active-unit" /> : ''}</div>
               <hr></hr>
               <div className="unit-title" id="unit-wind">Wind Speed</div>
-              <div onClick={()=> setWindspeed('kmh')} className={`unit-choice ${windspeed == 'kmh' ? "active-unit" : ''}`} id="unit-km">km/h{windspeed == 'kmh' ? <img src="./icon-checkmark.svg" alt="active-unit"/> : ''}</div>
-              <div onClick={()=> setWindspeed('mph')} className={`unit-choice ${windspeed == 'mph' ? "active-unit" : ''}`} id="unit-mph">mph{windspeed == 'mph' ? <img src="./icon-checkmark.svg" alt="active-unit"/> : ''}</div>
+              <div onClick={() => setWindspeed('kmh')} className={`unit-choice ${windspeed == 'kmh' ? "active-unit" : ''}`} id="unit-km">km/h{windspeed == 'kmh' ? <img src="./icon-checkmark.svg" alt="active-unit" /> : ''}</div>
+              <div onClick={() => setWindspeed('mph')} className={`unit-choice ${windspeed == 'mph' ? "active-unit" : ''}`} id="unit-mph">mph{windspeed == 'mph' ? <img src="./icon-checkmark.svg" alt="active-unit" /> : ''}</div>
               <hr></hr>
               <div className="unit-title" id="unit-precipitation">Precipitation</div>
-              <div onClick={()=> setPrecipitation('mm')} className={`unit-choice ${precipitation == 'mm' ? "active-unit" : ''}`} id="unit-mm">Milimeters (mm){precipitation == 'mm' ? <img src="./icon-checkmark.svg" alt="active-unit"/> : ''}</div>
-              <div onClick={()=> setPrecipitation('inch')} className={`unit-choice ${precipitation == 'inch' ? "active-unit" : ''}`} id="unit-in">Inches (in){precipitation == 'inch' ? <img src="./icon-checkmark.svg" alt="active-unit"/> : ''}</div>
+              <div onClick={() => setPrecipitation('mm')} className={`unit-choice ${precipitation == 'mm' ? "active-unit" : ''}`} id="unit-mm">Milimeters (mm){precipitation == 'mm' ? <img src="./icon-checkmark.svg" alt="active-unit" /> : ''}</div>
+              <div onClick={() => setPrecipitation('inch')} className={`unit-choice ${precipitation == 'inch' ? "active-unit" : ''}`} id="unit-in">Inches (in){precipitation == 'inch' ? <img src="./icon-checkmark.svg" alt="active-unit" /> : ''}</div>
             </div>
             :
             ''
@@ -49,10 +90,18 @@ export default function TopNav({ imperialOrMetric, setImperialOrMetric, temperat
       </div>
       <div id="title">How's the sky looking today?</div>
       <div id="search-wrapper">
-        <div id="search-text">
-          {/* <div>img</div> */}
-          <img id="search-img" src="/icon-search.svg" />
-          <input type="text" placeholder="Search for a place..." />
+        <div id="search-container">
+          <div id="search-text">
+            {/* <div>img</div> */}
+            <img id="search-img" src="/icon-search.svg" />
+            <input id="search-input" type="text" placeholder="Search for a place..." value={searchInput} onChange={(e) => handleChange(e)} />
+            {searchInput.length > 1 ?
+              <div id="results-window">
+                {searchDataResults()}
+              </div>
+              :
+              ''}
+          </div>
         </div>
         <div id="search-button">Search</div>
       </div>
