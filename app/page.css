@@ -104,6 +104,7 @@
     height: 57px;
     justify-content: center;
     margin-bottom: 45px;
+    /* position: relative; */
 }
 
 #search-img {
@@ -117,10 +118,11 @@
     align-items: center;
     background-color: hsl(243, 23%, 30%);
     border-radius: 8px;
-    padding: 25px;
-    box-sizing: border-box;
-    width: 525px;
-    /* border: 1px solid white; */
+    padding: 12.5px;
+    /* box-sizing: border-box; */
+    width: 528px;
+    border: 3px solid hsl(243, 96%, 9%);
+    outline: 3px solid hsl(243, 96%, 9%);
 }
 
 #search-text input {
@@ -149,4 +151,7 @@
     /* padding: 10px 15px; */
     border-radius: 8px;
     box-sizing: border-box;
+    cursor: pointer;
+    border: 3px solid hsl(243, 96%, 9%);
+    outline: 3px solid hsl(243, 96%, 9%);
 }

@@ -16,8 +16,6 @@ export default function MainSection({ dataMetric, dataImperial, geoData, activeD
     "Sunday": [],
   }
 
-  console.log(dataMetric);
-
   const dataOfDays = () => {
     //for every day of the week starting by today
     for (let i = 0; i < newDays.length; i++) {
