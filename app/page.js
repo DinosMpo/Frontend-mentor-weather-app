@@ -21,11 +21,12 @@ export default function Home() {
   const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
   const activeMonth = months[date.getMonth()];
   const activeHour = date.getHours();
-  const lat = 52.52;
-  const lon = 13.405;
+  const [searchInput, setSearchInput] = useState('');
+  const [lat, setLat] = useState('37.98376');
+  const [lon, setLon] = useState('23.72784');
   const apiForecastUrlMetric = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&wind_speed_unit=${windspeed}&precipitation_unit=${precipitation}&hourly=temperature_2m&hourly=precipitation&hourly=wind_speed_10m&hourly=relativehumidity_2m&hourly=apparent_temperature&hourly=weather_code&daily=weather_code`;
   const apiForecastUrlImperial = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&hourly=temperature_2m&hourly=precipitation&hourly=wind_speed_10m&hourly=relativehumidity_2m&hourly=apparent_temperature&hourly=weather_code&daily=weather_code`;
-  const apiGeotUrl = `https://geocoding-api.open-meteo.com/v1/search?name=Berlin&count=1&language=en&format=json`;
+  const apiGeoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=Athens&count=5&language=en&format=json`;
 
   useEffect(() => {
     fetch(apiForecastUrlMetric)
@@ -44,14 +45,14 @@ export default function Home() {
         setLoading(false)
       })
 
-    fetch(apiGeotUrl)
+    fetch(apiGeoUrl)
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
         setGeoData(data)
         setLoadingGeo(false)
       })
-  }, [])
+  }, [lat, lon])
 
   if (isLoading || isLoadingGeo) return <p>Loading...</p>
   if (!dataMetric || !dataImperial || !geoData) return <p>No data</p>
@@ -67,6 +68,10 @@ export default function Home() {
         setWindspeed={setWindspeed}
         precipitation={precipitation}
         setPrecipitation={setPrecipitation}
+        searchInput={searchInput}
+        setSearchInput={setSearchInput}
+        setLat={setLat}
+        setLon={setLon}
       />
       <div id="sections">
         <MainSection
