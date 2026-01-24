@@ -46,6 +46,5 @@ export default function TodaysWeather({ detailOfDays, geoData, activeDay, months
                 </div>
             </div>
         </div>
-
     )
 }

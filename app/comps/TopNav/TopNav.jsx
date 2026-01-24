@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
+import Error from '../Error/Error';
 import "./TopNav.css";
 
-export default function TopNav({ imperialOrMetric, setImperialOrMetric, temperature, setTemperature, windspeed, setWindspeed, precipitation, setPrecipitation, searchInput, setSearchInput, setLat, setLon }) {
+export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetric, temperature, setTemperature, windspeed, setWindspeed, precipitation, setPrecipitation, searchInput, setSearchInput, setLat, setLon, setRetry }) {
   const [activeUnits, setActiveUnits] = useState(false);
   const [searchData, setSearchData] = useState('');
   const apiGeoUrl2 = `https://geocoding-api.open-meteo.com/v1/search?name=${searchInput}&count=5&language=en&format=json`;
@@ -56,7 +57,8 @@ export default function TopNav({ imperialOrMetric, setImperialOrMetric, temperat
     }
   }
 
-  // console.log(searchData);
+  // console.log('isLoading');
+  // console.log(isLoading);
 
   return (
     <div className="top-nav">
@@ -88,23 +90,31 @@ export default function TopNav({ imperialOrMetric, setImperialOrMetric, temperat
           }
         </div>
       </div>
-      <div id="title">How's the sky looking today?</div>
-      <div id="search-wrapper">
-        <div id="search-container">
-          <div id="search-text">
-            {/* <div>img</div> */}
-            <img id="search-img" src="/icon-search.svg" />
-            <input id="search-input" type="text" placeholder="Search for a place..." value={searchInput} onChange={(e) => handleChange(e)} />
-            {searchInput.length > 1 ?
-              <div id="results-window">
-                {searchDataResults()}
+      {
+        isLoading ?
+          <Error setRetry={setRetry}/>
+          :
+          <div>
+            <div id="title">How's the sky looking today?</div>
+            <div id="search-wrapper">
+              <div id="search-container">
+                <div id="search-text">
+                  {/* <div>img</div> */}
+                  <img id="search-img" src="/icon-search.svg" />
+                  <input id="search-input" type="text" placeholder="Search for a place..." value={searchInput} onChange={(e) => handleChange(e)} />
+                  {searchInput.length > 1 ?
+                    <div id="results-window">
+                      {searchDataResults()}
+                    </div>
+                    :
+                    ''
+                  }
+                </div>
               </div>
-              :
-              ''}
+              <div id="search-button">Search</div>
+            </div>
           </div>
-        </div>
-        <div id="search-button">Search</div>
-      </div>
+      }
     </div>
   )
 }
