@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import Error from '../Error/Error';
 import "./TopNav.css";
 
-export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetric, temperature, setTemperature, windspeed, setWindspeed, precipitation, setPrecipitation, searchInput, setSearchInput, setLat, setLon, setRetry }) {
+export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetric, temperature, setTemperature, windspeed, setWindspeed, precipitation, setPrecipitation, searchInput, setSearchInput, setLat, setLon, setRetry, setName, setCountry }) {
   const [activeUnits, setActiveUnits] = useState(false);
   const [searchData, setSearchData] = useState('');
   const apiGeoUrl2 = `https://geocoding-api.open-meteo.com/v1/search?name=${searchInput}&count=5&language=en&format=json`;
@@ -35,9 +35,11 @@ export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetri
     setSearchInput(e.target.value);
   }
 
-  const fetchNewData = (x, y) => {
-    setLat(x);
-    setLon(y);
+  const fetchNewData = (lat, lon, name, country) => {
+    setLat(lat);
+    setLon(lon);
+    setName(name);
+    setCountry(country);
     setSearchInput('');
   }
 
@@ -46,9 +48,10 @@ export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetri
       console.log("searchData.results.length");
       console.log(searchData.results.length);
       const listOfSearchResults = searchData.results.map((data, key) => {
-        // console.log(data);
+        console.log("data");
+        console.log(data);
         return (
-          <div className="search-result" key={key} onClick={() => fetchNewData(data.latitude, data.longitude)}>
+          <div className="search-result" key={key} onClick={() => fetchNewData(data.latitude, data.longitude, data.name, data.country)}>
             {`${data.name}, ${data.country}, ${data.admin1}`}
           </div>
         );

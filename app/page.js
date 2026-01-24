@@ -25,11 +25,13 @@ export default function Home() {
   const [searchInput, setSearchInput] = useState('');
   const [lat, setLat] = useState('37.98376');
   const [lon, setLon] = useState('23.72784');
+  const [name, setName] = useState('Athens');
+  const [country, setCountry] = useState('Greece');
   const [retry, setRetry] = useState(false);
 
   const apiForecastUrlMetric = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&wind_speed_unit=${windspeed}&precipitation_unit=${precipitation}&hourly=temperature_2m&hourly=precipitation&hourly=wind_speed_10m&hourly=relativehumidity_2m&hourly=apparent_temperature&hourly=weather_code&daily=weather_code`;
   const apiForecastUrlImperial = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&hourly=temperature_2m&hourly=precipitation&hourly=wind_speed_10m&hourly=relativehumidity_2m&hourly=apparent_temperature&hourly=weather_code&daily=weather_code`;
-  const apiGeoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=Athens&count=5&language=en&format=json`;
+  const apiGeoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${name}&country=${country}&language=en&format=json`;
 
   useEffect(() => {
     fetch(apiForecastUrlMetric)
@@ -86,6 +88,8 @@ export default function Home() {
         setLat={setLat}
         setLon={setLon}
         setRetry={setRetry}
+        setName={setName}
+        setCountry={setCountry}
       />
       {
         isLoading && isLoadingGeo ?
