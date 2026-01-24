@@ -1,0 +1,33 @@
+#error-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+#error-img {
+    width: 40px;
+}
+
+#error-title {
+    font-size: 53px;
+    font-weight: bold;
+}
+
+#error-description {
+    width: 500px;
+    text-align: center;
+}
+
+#error-retry-button {
+    background-color: hsl(243, 23%, 30%);
+    width: 98px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
