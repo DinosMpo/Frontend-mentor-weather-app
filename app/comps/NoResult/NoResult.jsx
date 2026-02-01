@@ -1,7 +1,8 @@
 import React from 'react'
+import "./NoResult.css"
 
 export default function NoResult() {
   return (
-    <div>No search results found</div>
+    <div id="no-result">No search result found!</div>
   )
 }
