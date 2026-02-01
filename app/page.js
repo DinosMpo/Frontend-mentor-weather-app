@@ -5,6 +5,7 @@ import TopNav from "./comps/TopNav/TopNav";
 import SideSection from "./comps/SideSection/SideSection";
 import Loading from "./comps/Loading/Loading";
 import "./page.css";
+import NoResult from "./comps/NoResult/NoResult";
 
 export default function Home() {
   const [dataMetric, setDataMetric] = useState(null);
@@ -28,6 +29,7 @@ export default function Home() {
   const [name, setName] = useState('Athens');
   const [country, setCountry] = useState('Greece');
   const [retry, setRetry] = useState(false);
+  const [noResult, setNoResult] = useState(false);
 
   const apiForecastUrlMetric = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&wind_speed_unit=${windspeed}&precipitation_unit=${precipitation}&hourly=temperature_2m&hourly=precipitation&hourly=wind_speed_10m&hourly=relativehumidity_2m&hourly=apparent_temperature&hourly=weather_code&daily=weather_code`;
   const apiForecastUrlImperial = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&temperature_unit=fahrenheit&wind_speed_unit=mph&precipitation_unit=inch&hourly=temperature_2m&hourly=precipitation&hourly=wind_speed_10m&hourly=relativehumidity_2m&hourly=apparent_temperature&hourly=weather_code&daily=weather_code`;
@@ -69,12 +71,14 @@ export default function Home() {
   }, [retry]);
 
   // if (isLoading && isLoadingGeo) return <Loading />
-  if (!dataMetric || !dataImperial || !geoData) return <Loading searchInput={searchInput}/>
+  if (!dataMetric || !dataImperial || !geoData) return <Loading searchInput={searchInput} />
 
   return (
     <div id="container">
       <TopNav
         isLoading={isLoading}
+        setLoading={setLoading}
+        setLoadingGeo={setLoadingGeo}
         imperialOrMetric={imperialOrMetric}
         setImperialOrMetric={setImperialOrMetric}
         temperature={temperature}
@@ -90,28 +94,33 @@ export default function Home() {
         setRetry={setRetry}
         setName={setName}
         setCountry={setCountry}
+        setNoResult={setNoResult}
       />
       {
         isLoading && isLoadingGeo ?
-          // <Loading />
+          // <Loading searchInput={searchInput}/>
           ""
           :
-          <div id="sections">
-            <MainSection
-              dataMetric={dataMetric}
-              dataImperial={dataImperial}
-              geoData={geoData}
-              activeDay={activeDay}
-              months={months}
-              activeMonth={activeMonth}
-              activeHour={activeHour}
-              date={date}
-              temperature={temperature}
-              windspeed={windspeed}
-              precipitation={precipitation}
-            />
-            <SideSection dataMetric={dataMetric} dataImperial={dataImperial} activeDay={activeDay} setActiveDay={setActiveDay} temperature={temperature} />
-          </div>
+          !noResult ?
+
+            <div id="sections">
+              <MainSection
+                dataMetric={dataMetric}
+                dataImperial={dataImperial}
+                geoData={geoData}
+                activeDay={activeDay}
+                months={months}
+                activeMonth={activeMonth}
+                activeHour={activeHour}
+                date={date}
+                temperature={temperature}
+                windspeed={windspeed}
+                precipitation={precipitation}
+              />
+              <SideSection dataMetric={dataMetric} dataImperial={dataImperial} activeDay={activeDay} setActiveDay={setActiveDay} temperature={temperature} />
+            </div>
+          :
+            <NoResult />
       }
     </div>
   );

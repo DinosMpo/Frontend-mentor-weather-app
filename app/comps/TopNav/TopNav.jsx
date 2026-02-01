@@ -1,12 +1,32 @@
 import { useState, useEffect } from 'react'
 import Error from '../Error/Error';
+import NoResult from '../NoResult/NoResult';
 import "./TopNav.css";
 
-export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetric, temperature, setTemperature, windspeed, setWindspeed, precipitation, setPrecipitation, searchInput, setSearchInput, setLat, setLon, setRetry, setName, setCountry }) {
+export default function TopNav({
+  isLoading,
+  setLoading,
+  setLoadingGeo,
+  imperialOrMetric,
+  setImperialOrMetric,
+  temperature,
+  setTemperature,
+  windspeed,
+  setWindspeed,
+  precipitation,
+  setPrecipitation,
+  searchInput,
+  setSearchInput,
+  setLat,
+  setLon,
+  setRetry,
+  setName,
+  setCountry,
+  setNoResult
+}) {
   const [activeUnits, setActiveUnits] = useState(false);
   const [searchData, setSearchData] = useState('');
   const apiGeoUrl2 = `https://geocoding-api.open-meteo.com/v1/search?name=${searchInput}&count=5&language=en&format=json`;
-
 
   useEffect(() => {
     fetch(apiGeoUrl2)
@@ -35,6 +55,10 @@ export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetri
     setSearchInput(e.target.value);
   }
 
+  const handleKeyDown = (e) => {
+    if(e.code == "Enter" || e.code == "NumpadEnter") searchInputButton();
+  } 
+
   const fetchNewData = (lat, lon, name, country) => {
     setLat(lat);
     setLon(lon);
@@ -45,8 +69,8 @@ export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetri
 
   const searchDataResults = () => {
     if (searchData.results) {
-      console.log("searchData.results.length");
-      console.log(searchData.results.length);
+      // console.log("searchData.results.length");
+      // console.log(searchData.results.length);
       const listOfSearchResults = searchData.results.map((data, key) => {
         console.log("data");
         console.log(data);
@@ -60,8 +84,15 @@ export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetri
     }
   }
 
-  // console.log('isLoading');
-  // console.log(isLoading);
+  const searchInputButton = () => {
+    if (searchData.results) {
+      fetchNewData(searchData.results[0].latitude, searchData.results[0].longitude, searchData.results[0].name, searchData.results[0].country);
+      setNoResult(false);
+    } else {
+      // alert('Error');
+      setNoResult(true);
+    }
+  }
 
   return (
     <div className="top-nav">
@@ -95,7 +126,8 @@ export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetri
       </div>
       {
         isLoading ?
-          <Error setRetry={setRetry}/>
+          <Error setRetry={setRetry} />
+
           :
           <div>
             <div id="title">How's the sky looking today?</div>
@@ -104,7 +136,14 @@ export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetri
                 <div id="search-text">
                   {/* <div>img</div> */}
                   <img id="search-img" src="/icon-search.svg" />
-                  <input id="search-input" type="text" placeholder="Search for a place..." value={searchInput} onChange={(e) => handleChange(e)} />
+                  <input
+                    id="search-input"
+                    type="text"
+                    placeholder="Search for a place..."
+                    value={searchInput}
+                    onChange={(e) => handleChange(e)}
+                    onKeyDown={(e)=> handleKeyDown(e)}
+                  />
                   {searchInput.length > 1 ?
                     <div id="results-window">
                       {searchDataResults()}
@@ -114,7 +153,7 @@ export default function TopNav({ isLoading, imperialOrMetric, setImperialOrMetri
                   }
                 </div>
               </div>
-              <div id="search-button">Search</div>
+              <div id="search-button" onClick={() => searchInputButton()}>Search</div>
             </div>
           </div>
       }
