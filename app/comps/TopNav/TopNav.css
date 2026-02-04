@@ -5,10 +5,26 @@
 
 #search-input {
     outline: none;
+    cursor: pointer;
+}
+
+#search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 115px;
+    background-color: hsl(233, 67%, 56%);
+    /* padding: 10px 15px; */
+    border-radius: 8px;
+    box-sizing: border-box;
+    cursor: pointer;
+    border: 3px solid hsl(243, 96%, 9%);
+    outline: 3px solid hsl(243, 96%, 9%);
 }
 
 #search-button:active {
-    outline: 3px solid white;
+    outline: 3px solid hsl(233, 67%, 56%);
 }
 
 #search-container {
@@ -42,12 +58,75 @@
     padding-left: 10px;
     border-radius: 8px;
     height: 40px;
-
-    /* background-color: hsl(243, 23%, 30%); */
-
-
 }
 
 .search-result:hover {
     background-color: hsl(243, 23%, 30%);
+}
+
+#units-container {
+    width: 120px;
+    height: 45px;
+    background-color: hsl(243, 23%, 30%);
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    position: relative;
+    border: 2px solid hsl(243, 96%, 9%);
+}
+
+.units-container-active {
+    outline: 2px solid white;
+}
+
+#units-wrapper {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+#units-dropdown {
+    position: absolute;
+    background-color: hsl(243, 23%, 24%);
+    top: 55px;
+    right: 0;
+    border-radius: 10px;
+    z-index: 1;
+    width: 220px;
+    padding: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.unit-title {
+    color: hsl(240, 6%, 70%);
+    font-size: 15px;
+    padding-left: 5px;
+}
+
+.unit-choice {
+    border-radius: 10px;
+    box-sizing: border-box;
+    padding: 15px 5px;
+    border: 1px solid hsl(243, 23%, 24%);
+    display: flex;
+    justify-content: space-between;
+}
+
+.unit-choice:hover {
+    /* border: 1px solid white; */
+    background-color: hsl(243, 23%, 30%);
+    box-sizing: border-box;
+}
+
+.active-unit {
+    /* border: 1px solid white; */
+    background-color: hsl(243, 23%, 30%);
+}
+
+.unit-choice:active {
+    outline: 1px solid white;
 }
