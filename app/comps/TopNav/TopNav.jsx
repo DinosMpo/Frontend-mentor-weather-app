@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Error from '../Error/Error';
 import NoResult from '../NoResult/NoResult';
+import SearchInProgress from '../SearchInProgress/SearchInProgress';
 import "./TopNav.css";
 
 export default function TopNav({
@@ -98,7 +99,7 @@ export default function TopNav({
     <div className="top-nav">
       <div className="top-wrapper">
         <img src="/logo.svg" />
-        <div id="units-container">
+        <div id="units-container" className={activeUnits ? 'units-container-active' : ''}>
           <div id="units-wrapper" onClick={() => setActiveUnits(preValue => !preValue)}>
             <img alt="eee" src="./icon-units.svg" />
             <div id="units">Units</div>
@@ -127,7 +128,6 @@ export default function TopNav({
       {
         isLoading ?
           <Error setRetry={setRetry} />
-
           :
           <div>
             <div id="title">How's the sky looking today?</div>
@@ -146,7 +146,8 @@ export default function TopNav({
                   />
                   {searchInput.length > 1 ?
                     <div id="results-window">
-                      {searchDataResults()}
+                      {searchDataResults() ? searchDataResults() : <SearchInProgress /> }
+                      {/* {searchDataResults()} */}
                     </div>
                     :
                     ''
