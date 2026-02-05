@@ -104,15 +104,15 @@ export default function DailyForecast({ dataMetric, dataImperial, temperature })
                     <img className='weather-of-day' src={day.img} />
                 </div>
                 <div className="days-temperatures">
-                    <div className="high-temperature">{temperature == "celsius" ? day.max_celsius : day.max_fahrenheit}°</div>
-                    <div className="low-temperature">{temperature == "celsius" ? day.min_celsius : day.min_fahrenheit}°</div>
+                    <div className="high-temperature">{temperature == "celsius" ? Math.round(day.max_celsius) : Math.round(day.max_fahrenheit)}°</div>
+                    <div className="low-temperature">{temperature == "celsius" ? Math.round(day.min_celsius) : Math.round(day.min_fahrenheit)}°</div>
                 </div>
             </div>
         );
     });
 
     return (
-        <div className="daily-forecast">
+        <div id="daily-forecast">
             <div id="daily-forecast-title">Daily forecast</div>
             {/* weekly days */}
             <div id="days">
