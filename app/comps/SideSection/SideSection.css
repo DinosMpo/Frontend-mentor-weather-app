@@ -2,7 +2,6 @@
     background-color: hsl(243, 27%, 20%);
     width: 383px;
     border-radius: 20px;
-    /* padding: 25px; */
     box-sizing: border-box;
     position: relative;
     display: flex;
@@ -28,7 +27,6 @@
 
 #active-day-wrapper {
     background-color: hsl(243, 23%, 30%);
-    /* background-color: hsl(243, 23%, 24%); */
     padding: 7.5px;
     box-sizing: border-box;
     border-radius: 10px;
@@ -46,7 +44,6 @@
     right: 0px;
     border-radius: 10px;
     border: 1px solid hsl(243, 23%, 30%);
-    /* max-width: 100%; */
     width: 212px;
     height: 314px;
     background-color: hsl(243, 23%, 24%);
@@ -59,7 +56,6 @@
 
 .day-choice {
     height: 40px;
-    /* border: 1px solid rgb(104, 104, 104); */
     display: flex;
     align-items: center;
     padding-left: 8px;
@@ -74,12 +70,9 @@
 #list-of-hours-container {
     display: flex;
     flex-direction: column;
-    /* border: 1px solid white; */
     justify-content: space-evenly;
     height: 590px;
-    /* position: relative; */
     gap: 15px;
-    /* border: 1px solid white; */
     overflow-y: scroll;
     padding: 0px 25px;
 }
@@ -92,14 +85,12 @@
     padding: 15px;
     box-sizing: border-box;
     border-radius: 10px;
-    /* border: 1px solid white; */
     background-color: hsl(243, 23%, 24%);
     height: 60px;
 }
 
 .forecast-hour-wrapper {
     display: flex;
-    /* border: 1px solid white; */
     gap: 10px;
     font-weight: 600;
     align-items: center;
@@ -108,8 +99,6 @@
 
 .forecast-hour-weather {
     width: 30px;
-    /* border: 1px solid white; */
-    /* height: 10px; */
 }
 
 .degree {

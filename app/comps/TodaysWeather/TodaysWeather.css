@@ -1,12 +1,10 @@
 #todays-weather-wrapper {
-    /* border: 1px solid white; */
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
 .todays-weather-container {
-    /* border: 1px solid white; */
     border-radius: 10px;
     display: flex;
     width: 100%;
@@ -20,7 +18,6 @@
 }
 
 #todays-weather-information {
-    /* border: 1px solid white; */
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -29,7 +26,6 @@
 #todays-weather-place {
     font-weight: bold;
     font-size: 28px;
-    /* font-family: ; */
 }
 
 #todays-weather-date {
@@ -62,7 +58,6 @@
 
 #todays-weather-details {
     display: flex;
-    /* border: 1px solid white; */
     width: 100%;
     justify-content: space-between;
 }
