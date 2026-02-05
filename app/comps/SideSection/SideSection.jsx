@@ -56,7 +56,7 @@ export default function SideSection({ dataMetric, dataImperial, activeDay, setAc
                     </div>
                     <div className="hour">{hour.hour}</div>
                 </div>
-                <div className="degree">{temperature == 'celsius' ? hour.degree_celsius : hour.degree_fahrenheit}°</div>
+                <div className="degree">{temperature == 'celsius' ? Math.round(hour.degree_celsius) : Math.round(hour.degree_fahrenheit)}°</div>
             </div>
         );
     });
@@ -64,7 +64,7 @@ export default function SideSection({ dataMetric, dataImperial, activeDay, setAc
     return (
         <div id="side-section">
             <div id="hourly-forecast">
-                <div>Hourly forecast</div>
+                <div id="hourly-forecast-title">Hourly forecast</div>
                 <div id="day-wrapper">
                     <div id="active-day-wrapper" onClick={() => setActiveDayClicked(!activeDayClicked)}>
                         <div id="day">{activeDay}</div>

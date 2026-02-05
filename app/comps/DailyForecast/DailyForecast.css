@@ -1,9 +1,10 @@
-.daily-forecast {
+#daily-forecast {
 
 }
 
 #daily-forecast-title {
     margin-bottom: 20px;
+    font-weight: 700;
 }
 
 #days {

@@ -98,12 +98,12 @@ export default function TopNav({
   return (
     <div className="top-nav">
       <div className="top-wrapper">
-        <img src="/logo.svg" />
+        <img id="logo" src="/logo.svg" />
         <div id="units-container" className={activeUnits ? 'units-container-active' : ''}>
           <div id="units-wrapper" onClick={() => setActiveUnits(preValue => !preValue)}>
-            <img alt="eee" src="./icon-units.svg" />
+            <img id="units-img" alt="units-img" src="./icon-units.svg" />
             <div id="units">Units</div>
-            <img alt="eee" src="./icon-dropdown.svg" />
+            <img id="units-dropdown-img" alt="units-dropdown" src="./icon-dropdown.svg" />
           </div>
           {activeUnits ?
             <div id="units-dropdown">
@@ -129,7 +129,7 @@ export default function TopNav({
         isLoading ?
           <Error setRetry={setRetry} />
           :
-          <div>
+          <div id="wrapper">
             <div id="title">How's the sky looking today?</div>
             <div id="search-wrapper">
               <div id="search-container">

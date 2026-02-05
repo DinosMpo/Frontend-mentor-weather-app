@@ -5,6 +5,7 @@ import TopNav from "./comps/TopNav/TopNav";
 import SideSection from "./comps/SideSection/SideSection";
 import Loading from "./comps/Loading/Loading";
 import "./page.css";
+import "./page.mobile.css";
 import NoResult from "./comps/NoResult/NoResult";
 
 export default function Home() {
@@ -102,7 +103,6 @@ export default function Home() {
           ""
           :
           !noResult ?
-
             <div id="sections">
               <MainSection
                 dataMetric={dataMetric}

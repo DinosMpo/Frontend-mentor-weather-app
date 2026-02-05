@@ -14,7 +14,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 25px 25px 0px 25px;
+    padding: 20px 25px 0px 25px;
+}
+
+#hourly-forecast-title {
+    font-weight: 700;
+    font-size: 20px;
 }
 
 #day-wrapper {
@@ -22,7 +27,8 @@
 }
 
 #active-day-wrapper {
-   background-color: hsl(243, 23%, 24%);
+    background-color: hsl(243, 23%, 30%);
+    /* background-color: hsl(243, 23%, 24%); */
     padding: 7.5px;
     box-sizing: border-box;
     border-radius: 10px;
@@ -31,6 +37,7 @@
     gap: 10px;
     position: relative;
     cursor: pointer;
+    width: 120px;
 }
 
 #active-day-drop-down {
@@ -38,7 +45,7 @@
     top: 45;
     right: 0px;
     border-radius: 10px;
-    border: 1px solid white;
+    border: 1px solid hsl(243, 23%, 30%);
     /* max-width: 100%; */
     width: 212px;
     height: 314px;
@@ -86,19 +93,25 @@
     box-sizing: border-box;
     border-radius: 10px;
     /* border: 1px solid white; */
-    background-color: hsl(243, 23%, 30%);
+    background-color: hsl(243, 23%, 24%);
     height: 60px;
 }
 
 .forecast-hour-wrapper {
     display: flex;
     /* border: 1px solid white; */
+    gap: 10px;
+    font-weight: 600;
     align-items: center;
-    
+
 }
 
 .forecast-hour-weather {
     width: 30px;
     /* border: 1px solid white; */
     /* height: 10px; */
+}
+
+.degree {
+    font-weight: 600;
 }
