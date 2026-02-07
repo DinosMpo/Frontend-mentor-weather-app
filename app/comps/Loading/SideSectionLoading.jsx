@@ -11,7 +11,7 @@ export default function SideSectionLoading() {
   return (
     <div id="side-section-loading">
       <div id="hourly-forecast">
-        <div>Hourly forecast</div>
+        <div id="hourly-forecast-title">Hourly forecast</div>
         <div id="day-wrapper">
           <div id="active-day-wrapper">
             <div id="day">-</div>
