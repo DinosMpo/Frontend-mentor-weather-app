@@ -2,8 +2,6 @@ body {
     background-color: hsl(243, 96%, 9%);
     color: hsl(0, 0%, 100%);
     font-size: 18px;
-    /* font-family: ; */
-    /* border: 1px solid white; */
     display: flex;
     justify-content: center;
 }

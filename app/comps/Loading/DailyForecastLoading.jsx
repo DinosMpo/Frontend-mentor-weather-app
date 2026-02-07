@@ -6,7 +6,7 @@ export default function DailyForecastLoading() {
     });
 
     return (
-        <div className="daily-forecast">
+        <div id="daily-forecast">
             <div id="daily-forecast-title">Daily forecast</div>
             <div id="days">
                 {listOfDays}
