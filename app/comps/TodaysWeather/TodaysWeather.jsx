@@ -27,7 +27,7 @@ export default function TodaysWeather({ detailOfDays, geoData, activeDay, months
         <div className="details">
           <div className='details-title'>Feels Like</div>
           {/* <div>{data.hourly.apparent_temperature[activeHour]}°</div> */}
-          <div>{temperature == 'celsius' ? detailOfDays[activeDay][activeHour].feelsLike_celsius : detailOfDays[activeDay][activeHour].feelsLike_fahrenheit}°</div>
+          <div>{temperature == 'celsius' ? Math.round(detailOfDays[activeDay][activeHour].feelsLike_celsius) : Math.round(detailOfDays[activeDay][activeHour].feelsLike_fahrenheit)}°</div>
         </div>
         <div className="details">
           <div className='details-title'>Humidity</div>
